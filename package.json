@@ -1,0 +1,94 @@
+{
+  "name": "openzeppelin-solidity",
+  "description": "Secure Smart Contract library for Solidity",
+  "version": "4.6.0-rc.1",
+  "files": [
+    "/contracts/**/*.sol",
+    "/build/contracts/*.json",
+    "!/contracts/mocks/**/*"
+  ],
+  "bin": {
+    "openzeppelin-contracts-migrate-imports": "scripts/migrate-imports.js"
+  },
+  "scripts": {
+    "compile": "yarn hardhat compile",
+    "coverage": "env COVERAGE=true hardhat coverage",
+    "docs": "oz-docs",
+    "docs:watch": "yarn run docs watch contracts 'docs/*.hbs' docs/helpers.js",
+    "prepare-docs": "scripts/prepare-docs.sh",
+    "lint": "yarn run lint:js && yarn run lint:sol",
+    "lint:fix": "yarn run lint:js:fix && yarn run lint:sol:fix",
+    "lint:js": "yarn eslint --ignore-path .gitignore .",
+    "lint:js:fix": "yarn eslint --ignore-path .gitignore . --fix",
+    "lint:sol": "yarn solhint 'contracts/**/*.sol' && yarn prettier -c 'contracts/**/*.sol'",
+    "lint:sol:fix": "yarn prettier --write \"contracts/**/*.sol\"",
+    "clean": "yarn hardhat clean && rimraf build contracts/build",
+    "prepare": "yarn run clean && env COMPILE_MODE=production yarn run compile",
+    "prepack": "scripts/prepack.sh",
+    "release": "scripts/release/release.sh",
+    "version": "scripts/release/version.sh",
+    "test": "yarn hardhat test",
+    "test:inheritance": "node scripts/inheritanceOrdering artifacts/build-info/*",
+    "gas-report": "env ENABLE_GAS_REPORT=true yarn run test",
+    "slither": "yarn run hardhat clean && slither . --detect reentrancy-eth,reentrancy-no-eth,reentrancy-unlimited-gas --filter-paths contracts/mocks"
+  },
+  "repository": "git+https://github.com/mrHeyday/openzeppelin-contracts-release-v4.6.git",
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "security",
+    "zeppelin"
+  ],
+  "author": "hubert@heyday.finance",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/issues"
+  },
+  "homepage": "https://openzeppelin.com/contracts/",
+  "devDependencies": {
+    "@nomiclabs/hardhat-truffle5": "^2.0.5",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "@openzeppelin/docs-utils": "^0.1.0",
+    "@openzeppelin/test-helpers": "^0.5.13",
+    "chai": "^4.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-mocha": "^10.0.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eth-sig-util": "^3.0.0",
+    "ethereumjs-util": "^7.0.7",
+    "ethereumjs-wallet": "^1.0.1",
+    "graphlib": "^2.1.8",
+    "hardhat": "^2.9.1",
+    "hardhat-gas-reporter": "^1.0.4",
+    "keccak256": "^1.0.2",
+    "lodash.startcase": "^4.4.0",
+    "lodash.zip": "^4.2.0",
+    "merkletreejs": "^0.2.13",
+    "micromatch": "^4.0.2",
+    "prettier": "^2.3.0",
+    "prettier-plugin-solidity": "^1.0.0-beta.16",
+    "rimraf": "^3.0.2",
+    "semver": "^7.3.5",
+    "solhint": "^3.3.6",
+    "solidity-ast": "^0.4.25",
+    "solidity-coverage": "^0.7.18",
+    "solidity-docgen": "^0.5.3",
+    "web3": "^1.3.0",
+    "yargs": "^17.0.0"
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "dependencies": {
+    "husky": "^7.0.4",
+    "install-peers": "^1.0.3"
+  },
+  "private": true
+}
